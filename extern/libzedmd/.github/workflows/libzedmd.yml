@@ -1,0 +1,203 @@
+name: libzedmd
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  version:
+    name: Detect version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: version
+        run: |
+          VERSION_MAJOR=$(grep -Eo "ZEDMD_VERSION_MAJOR\s+[0-9]+" src/ZeDMD.h | grep -Eo "[0-9]+")
+          VERSION_MINOR=$(grep -Eo "ZEDMD_VERSION_MINOR\s+[0-9]+" src/ZeDMD.h | grep -Eo "[0-9]+")
+          VERSION_PATCH=$(grep -Eo "ZEDMD_VERSION_PATCH\s+[0-9]+" src/ZeDMD.h | grep -Eo "[0-9]+")
+          TAG="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+          echo "${TAG}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+      - name: Check git tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          GIT_TAG="${GITHUB_REF#refs/tags/}"
+          EXPECTED_TAG="v${{ steps.version.outputs.tag }}"
+          if [[ "${GIT_TAG}" != "${EXPECTED_TAG}" ]]; then
+            echo "Error: Git tag (${GIT_TAG}) does not match version from ZeDMD.h (v${{ steps.version.outputs.tag }})"
+            exit 1
+          fi
+
+  build:
+    name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.type }}
+    runs-on: ${{ matrix.os }}
+    needs: [ version ]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, platform: win, arch: x64, type: Release }
+          - { os: windows-latest, platform: win, arch: x64, type: Debug }
+          - { os: windows-latest, platform: win, arch: x86, type: Release }
+          - { os: macos-latest, platform: macos, arch: arm64, type: Release }
+          - { os: macos-latest, platform: macos, arch: x64, type: Release }
+          - { os: ubuntu-latest, platform: linux, arch: x64, type: Release }
+          - { os: ubuntu-24.04-arm, platform: linux, arch: aarch64, type: Release }
+          - { os: ubuntu-latest, platform: android, arch: arm64-v8a, type: Release }
+          - { os: macos-latest, platform: ios, arch: arm64, type: Release }
+          - { os: macos-latest, platform: ios-simulator, arch: arm64, type: Release }
+          - { os: macos-latest, platform: tvos, arch: arm64, type: Release }
+    steps:
+      - uses: actions/checkout@v4
+      - if: (matrix.platform == 'win')
+        name: Add msbuild to path (win runner)
+        uses: microsoft/setup-msbuild@v2
+      - if: (matrix.platform == 'macos')
+        name: Add autoconf and automake (mac runner)
+        run: |
+           brew install autoconf automake libtool
+      - name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}
+        run: |
+          ./platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh
+          if [[ "${{ matrix.platform }}" == "win" ]]; then
+             if [[ "${{ matrix.arch }}" == "x64" ]]; then
+                cmake -G "Visual Studio 17 2022" -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B build
+             elif [[ "${{ matrix.arch }}" == "x86" ]]; then
+                cmake -G "Visual Studio 17 2022" -A Win32 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B build
+             elif [[ "${{ matrix.arch }}" == "arm64" ]]; then
+                cmake -G "Visual Studio 17 2022" -A ARM64 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B build
+             fi
+             cmake --build build --config ${{ matrix.type }}
+          else
+             if [[ "$(uname)" == "Darwin" ]]; then
+                NUM_PROCS=$(sysctl -n hw.ncpu)
+             else
+                NUM_PROCS=$(nproc)
+             fi
+             cmake -DCMAKE_BUILD_TYPE=${{ matrix.type }} -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B build
+             cmake --build build -- -j${NUM_PROCS}
+          fi
+      - name: Prepare artifacts
+        id: artifacts
+        run: |
+          mkdir tmp
+          if [[ "${{ matrix.platform }}" == "win" ]]; then
+            ARTIFACT_PATH="tmp"
+            if [[ "${{ matrix.arch }}" == "x64" ]]; then
+              cp build/${{ matrix.type }}/*64.lib tmp
+              cp build/${{ matrix.type }}/*64.dll tmp
+            else
+              cp build/${{ matrix.type }}/*.lib tmp
+              cp build/${{ matrix.type }}/*.dll tmp
+            fi
+            cp build/${{ matrix.type }}/zedmd-client-portable.exe tmp
+            cp build/${{ matrix.type }}/zedmd-client.exe tmp
+            cp build/${{ matrix.type }}/zedmd-test-portable.exe tmp
+            cp build/${{ matrix.type }}/zedmd-test.exe tmp
+            if [[ "${{ matrix.type }}" == "Debug" ]]; then
+              cp build/${{ matrix.type }}/*.pdb tmp
+            fi
+            cp -r test tmp/
+          else
+            ARTIFACT_PATH="libzedmd-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
+            if [[ "${{ matrix.platform }}" == "macos" ]]; then
+               cp build/libzedmd.a tmp
+               cp -a build/*.dylib tmp
+               cp build/zedmd-client-portable tmp
+               cp build/zedmd-client tmp
+               cp build/zedmd-test-portable tmp
+               cp build/zedmd-test tmp
+            elif [[ "${{ matrix.platform }}" == "linux" ]]; then
+               cp build/libzedmd.a tmp
+               cp -a build/*.{so,so.*} tmp
+               cp build/zedmd-client-portable tmp
+               cp build/zedmd-client tmp
+               cp build/zedmd-test-portable tmp
+               cp build/zedmd-test tmp
+            elif [[ "${{ matrix.platform }}" == "ios" || "${{ matrix.platform }}" == "ios-simulator" || "${{ matrix.platform }}" == "tvos" ]]; then
+               cp build/libzedmd.a tmp
+               cp -a build/*.dylib tmp
+            elif [[ "${{ matrix.platform }}" == "android" ]]; then
+               cp build/libzedmd.a tmp
+               cp build/libzedmd.so tmp
+            fi
+            cp -r test tmp/
+            cd tmp
+            tar -czvf ../${ARTIFACT_PATH} *
+          fi
+          echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libzedmd-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.type }}
+          path: ${{ steps.artifacts.outputs.artifact_path }}
+
+  post-build:
+    runs-on: macos-latest
+    needs: [ version, build ]
+    name: Build libzedmd-macos
+    steps:
+      - uses: actions/download-artifact@v4
+      - name: Unpack artifacts
+        run: |
+          cd libzedmd-${{ needs.version.outputs.tag }}-macos-x64-Release
+          tar -xzvf libzedmd-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
+          cd ..
+          cd libzedmd-${{ needs.version.outputs.tag }}-macos-arm64-Release
+          tar -xzvf libzedmd-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
+      - name: Combine macos architectures
+        run: |
+          mkdir tmp
+          find "libzedmd-${{ needs.version.outputs.tag }}-macos-arm64-Release" -name "*.dylib" | while read -r file; do
+            if [ -L "$file" ]; then
+              cp -a "$file" "tmp/"
+            elif [ -f "$file" ]; then
+              filename=$(basename "$file")
+              lipo -create -output "tmp/$filename" \
+                "libzedmd-${{ needs.version.outputs.tag }}-macos-arm64-Release/$filename" \
+                "libzedmd-${{ needs.version.outputs.tag }}-macos-x64-Release/$filename"
+            fi
+          done
+          for filename in zedmd-test zedmd-test-portable; do
+            lipo -create -output "tmp/$filename" \
+               "libzedmd-${{ needs.version.outputs.tag }}-macos-arm64-Release/$filename" \
+               "libzedmd-${{ needs.version.outputs.tag }}-macos-x64-Release/$filename"
+          done
+      - name: Prepare artifacts
+        run: |
+          cd tmp
+          tar -czvf ../libzedmd-${{ needs.version.outputs.tag }}-macos.tar.gz *
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libzedmd-${{ needs.version.outputs.tag }}-macos-Release
+          path: libzedmd-${{ needs.version.outputs.tag }}-macos.tar.gz
+      - name: Package
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          zip -r libzedmd-${{ needs.version.outputs.tag }}-win-x64.zip libzedmd-${{ needs.version.outputs.tag }}-win-x64-Release
+          zip -r libzedmd-${{ needs.version.outputs.tag }}-win-x86.zip libzedmd-${{ needs.version.outputs.tag }}-win-x86-Release
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          draft: true
+          files: |
+            libzedmd-${{ needs.version.outputs.tag }}-win-x64.zip
+            libzedmd-${{ needs.version.outputs.tag }}-win-x86.zip
+            libzedmd-${{ needs.version.outputs.tag }}-macos-arm64/libzedmd-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-macos-x64/libzedmd-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-macos.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-linux-x64/libzedmd-${{ needs.version.outputs.tag }}-linux-x64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-linux-aarch64/libzedmd-${{ needs.version.outputs.tag }}-linux-aarch64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-ios-arm64/libzedmd-${{ needs.version.outputs.tag }}-ios-arm64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-ios-simulator-arm64/libzedmd-${{ needs.version.outputs.tag }}-ios-simulator-arm64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-tvos-arm64/libzedmd-${{ needs.version.outputs.tag }}-tvos-arm64.tar.gz
+            libzedmd-${{ needs.version.outputs.tag }}-android-arm64-v8a/libzedmd-${{ needs.version.outputs.tag }}-android-arm64-v8a.tar.gz

@@ -1,0 +1,69 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "(lldb) zedmd-test",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/zedmd-test",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+      },
+      {
+        "name": "(gdb) zedmd-test",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/zedmd-test",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/local/bin/gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      },
+      {
+        "name": "(lldb) zedmd-client",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/zedmd-client",
+        "args": ["-i"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+      },
+      {
+        "name": "(gdb) zedmd-client",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/zedmd-client",
+        "args": ["-b", "5"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/local/bin/gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    ]
+  }
