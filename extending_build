@@ -2,6 +2,5 @@
 
 g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
 
-#"g++"   -L/home/jerome/boost/lib/ -I/home/jerome/Documents/boost/libzedmd-0.8.1/src -L.   -o "extending.so" -Wl,-soname -Wl,"extending.so" -shared -Wl,--start-group "extending.o"  -Wl,-Bstatic  -Wl,-Bdynamic -lboost_python312 -ldl -lpthread -lutil -lzedmd -lserialport -Wl,--end-group -fPIC -g 
 
 
