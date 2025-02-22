@@ -41,7 +41,7 @@ namespace { // Avoid cluttering the global namespace.
           uint16_t width = pZeDMD->GetWidth();
           uint16_t height = pZeDMD->GetHeight();
           pZeDMD->SetFrameSize(width, height);
-          pZeDMD->EnableUpscaling();
+          pZeDMD->DisableUpscaling();
         } else {
           printf("Error : ZeDMD->Open() is false\n");
         }
@@ -84,6 +84,22 @@ namespace { // Avoid cluttering the global namespace.
        */
       void SetBrightness(uint8_t brightness){
         pZeDMD->SetBrightness(brightness);
+      }
+      
+      void SetPanelMinRefreshRate(uint8_t minRefreshRate){
+        pZeDMD->SetPanelMinRefreshRate(minRefreshRate);
+      }
+
+      /** @brief Set the USB package size
+       * 
+       * @param usbPackageSize a value between 32 and 1920, but only multiple of 32
+      */
+      void SetUsbPackageSize(uint16_t usbPackageSize) {
+        pZeDMD->SetUsbPackageSize(usbPackageSize);
+      }
+
+      void SaveSettings() {
+        pZeDMD->SaveSettings();
       }
     
       void LedTest() { 
@@ -152,6 +168,9 @@ PYBIND11_MODULE(extending, m)
         .def("WhiteTest", &ZeDMD_ext::WhiteTest)
         .def("RenderTest", &ZeDMD_ext::RenderTest)
         .def("RenderRgb888", &ZeDMD_ext::RenderRgb888)
+        .def("SetUsbPackageSize", &ZeDMD_ext::SetUsbPackageSize)
+        .def("SetPanelMinRefreshRate", &ZeDMD_ext::SetPanelMinRefreshRate)
+        .def("SaveSettings", &ZeDMD_ext::SaveSettings)       
     ;
     
 }
