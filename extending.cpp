@@ -12,7 +12,7 @@
 #include <ZeDMD.h>
 
 #include <pybind11/pybind11.h>
-#include <pybind11/numpy.h>
+#include <pybind11/stl.h>
 
 namespace py = pybind11;
 
@@ -59,9 +59,8 @@ namespace { // Avoid cluttering the global namespace.
        *
        *  @param frame the RGB frame
        */
-      void RenderRgb888(py::array_t<uint8_t>& img){
-        
-        pZeDMD->RenderRgb888((uint8_t*)img.data());
+      void RenderRgb888(std::vector<uint8_t>& image_data){
+        pZeDMD->RenderRgb888(image_data.data());
       }
      
       /** @brief Set the RGB order
