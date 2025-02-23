@@ -62,8 +62,7 @@ namespace { // Avoid cluttering the global namespace.
       void RenderRgb888(std::vector<std::vector<uint8_t>>& image_data){
   
         uint8_t* pImage = (uint8_t*)malloc(128 * 32 * 3 * sizeof(uint8_t));
-        int index;
-        int i = 0;
+        int index, i;
         for (int y = 0; y < 32; ++y)
         {
           for (int x = 0; x < 128; ++x)
