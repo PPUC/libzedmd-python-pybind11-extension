@@ -20,10 +20,6 @@ ZeDMD = ZeDMD_ext()
 # ZeDMD.SetPanelMinRefreshRate(60)
 # ZeDMD.SaveSettings()
 
-# img = Image.open("test.jpg") 
-# ZeDMD.RenderRgb888(img)
-# time.sleep(3)
-
 image = Image.open("test.jpg")
 image = image.convert('RGB')
 image_data = [x for RGB in image.getdata() for x in RGB] # flatten the list using a listcomp with two 'for'
