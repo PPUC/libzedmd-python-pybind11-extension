@@ -59,8 +59,24 @@ namespace { // Avoid cluttering the global namespace.
        *
        *  @param frame the RGB frame
        */
-      void RenderRgb888(std::vector<uint8_t>& image_data){
-        pZeDMD->RenderRgb888(image_data.data());
+      void RenderRgb888(std::vector<std::vector<uint8_t>>& image_data){
+  
+        uint8_t* pImage = (uint8_t*)malloc(128 * 32 * 3 * sizeof(uint8_t));
+        int index;
+        int i = 0;
+        for (int y = 0; y < 32; ++y)
+        {
+          for (int x = 0; x < 128; ++x)
+          {
+            i = (y * 128 + x);
+            index = (y * 128 + x) * 3;
+            pImage[index++] = (image_data[i])[0];
+            pImage[index++] = (image_data[i])[1];
+            pImage[index] = (image_data[i])[2];
+          }
+        }
+        pZeDMD->RenderRgb888(pImage);
+        free(pImage);   
       }
      
       /** @brief Set the RGB order

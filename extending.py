@@ -22,16 +22,14 @@ ZeDMD = ZeDMD_ext()
 
 image = Image.open("test.jpg")
 image = image.convert('RGB')
-image_data = [x for RGB in image.getdata() for x in RGB] # flatten the list using a listcomp with two 'for'
-ZeDMD.RenderRgb888(image_data)
+ZeDMD.RenderRgb888(image.getdata())
 time.sleep(3)
 
 imageGif = Image.open("animation.gif")
 for frame in ImageSequence.Iterator(imageGif):
   frame = frame.convert('RGB')
-  frame_data = [x for RGB in frame.getdata() for x in RGB]
-  ZeDMD.RenderRgb888(frame_data)
-  time.sleep(0.016)
+  ZeDMD.RenderRgb888(frame.getdata())
+  time.sleep(0.008)
 
 # ZeDMD.WhiteTest()
 # ZeDMD.RenderTest()
