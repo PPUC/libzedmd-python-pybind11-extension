@@ -34,8 +34,8 @@ namespace { // Avoid cluttering the global namespace.
         
         if (pZeDMD->Open()) {
           pZeDMD->DisableDebug();
-          uint16_t width = pZeDMD->GetWidth();
-          uint16_t height = pZeDMD->GetHeight();
+          width = pZeDMD->GetWidth();
+          height = pZeDMD->GetHeight();
           pZeDMD->SetFrameSize(width, height);
           pZeDMD->DisableUpscaling();
         } else {
@@ -114,13 +114,13 @@ namespace { // Avoid cluttering the global namespace.
       }
 
       void WhiteTest() {
-        uint8_t* pImage = (uint8_t*)malloc(128 * 32 * 3 * sizeof(uint8_t));
+        uint8_t* pImage = (uint8_t*)malloc(width * height * 3 * sizeof(uint8_t));
         int index;
-        for (int y = 0; y < 32; ++y)
+        for (int y = 0; y < height; ++y)
         {
-          for (int x = 0; x < 128; ++x)
+          for (int x = 0; x < width; ++x)
           {
-            index = (y * 128 + x) * 3;
+            index = (y * width + x) * 3;
             pImage[index++] = 255;
             pImage[index++] = 255;
             pImage[index] = 255;
@@ -132,14 +132,14 @@ namespace { // Avoid cluttering the global namespace.
       }
 
       void RenderTest() {
-        char filename[45];
-        uint16_t size = 128 * 32 * 3;
+        char filename[50];
+        uint16_t size = width * height * 3;
         uint8_t* rgb888 = (uint8_t*)malloc(size * sizeof(uint8_t));
         FILE* fileptr;
 
         for (int i = 1; i <= 100; i++)
         {
-          snprintf(filename, 44, "extern/libzedmd/test/rgb888_%dx%d/%04d.raw", 128, 32, i);
+          snprintf(filename, 49, "extern/libzedmd/test/rgb888_%dx%d/%04d.raw", width, height, i);
           printf("Render raw: %s\n", filename);
           fileptr = fopen(filename, "rb");
           std::ignore = fread(rgb888, size, 1, fileptr);
@@ -154,6 +154,8 @@ namespace { // Avoid cluttering the global namespace.
 
     private:
       ZeDMD* pZeDMD;
+      uint16_t width;
+      uint16_t height;
 
   };
   
