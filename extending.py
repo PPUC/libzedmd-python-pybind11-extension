@@ -19,6 +19,7 @@ ZeDMD = ZeDMD_ext()
 # ZeDMD.SetUsbPackageSize(1024)
 # ZeDMD.SetPanelMinRefreshRate(60)
 # ZeDMD.SaveSettings()
+# ZeDMD.Reset()
 
 img = Image.open("test.jpg") 
 ZeDMD.RenderRgb888(img)
@@ -27,7 +28,7 @@ time.sleep(3)
 imageGif = Image.open("animation.gif")
 for frame in ImageSequence.Iterator(imageGif):
   ZeDMD.RenderRgb888(frame)
-  time.sleep(0.016)
+  time.sleep(0.008)
 
 # ZeDMD.WhiteTest()
 # ZeDMD.RenderTest()

@@ -1,7 +1,3 @@
-// Copyright Ralf W. Grosse-Kunstleve 2002-2004. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
 #include <stdarg.h>
 #include <stdlib.h>
 #include <chrono>
@@ -77,9 +73,6 @@ namespace { // Avoid cluttering the global namespace.
       }
       /** @brief Set the brightness
        *
-       *  Set the brightness of the LED panels.
-       *  @see https://github.com/PPUC/ZeDMD
-       *
        *  @param brightness a value between 0 and 15
        */
       void SetBrightness(uint8_t brightness){
@@ -98,10 +91,20 @@ namespace { // Avoid cluttering the global namespace.
         pZeDMD->SetUsbPackageSize(usbPackageSize);
       }
 
+      /** @brief Save settings previously set 
+       * 
+       * Save Brightness, RGBOrder, UsbPackageSize, PanelMinRefreshRate, ...
+       * New settings will be apllied after next ZeDMD start or reset
+      */     
       void SaveSettings() {
         pZeDMD->SaveSettings();
       }
     
+      void Reset() { 
+        pZeDMD->Reset();
+        std::this_thread::sleep_for(std::chrono::seconds(2));        
+      }
+
       void LedTest() { 
         pZeDMD->LedTest();
       }
@@ -158,19 +161,19 @@ namespace { // Avoid cluttering the global namespace.
 
 PYBIND11_MODULE(extending, m)
 {
-    py::class_<ZeDMD_ext>(m, "ZeDMD_ext")
-        .def(py::init())
-        .def("ClearScreen", &ZeDMD_ext::ClearScreen)
-        .def("SetRGBOrder", &ZeDMD_ext::SetRGBOrder)
-        .def("SetBrightness", &ZeDMD_ext::SetBrightness)
-        .def("Close", &ZeDMD_ext::Close)
-        .def("LedTest", &ZeDMD_ext::LedTest)
-        .def("WhiteTest", &ZeDMD_ext::WhiteTest)
-        .def("RenderTest", &ZeDMD_ext::RenderTest)
-        .def("RenderRgb888", &ZeDMD_ext::RenderRgb888)
-        .def("SetUsbPackageSize", &ZeDMD_ext::SetUsbPackageSize)
-        .def("SetPanelMinRefreshRate", &ZeDMD_ext::SetPanelMinRefreshRate)
-        .def("SaveSettings", &ZeDMD_ext::SaveSettings)       
-    ;
-    
+  py::class_<ZeDMD_ext>(m, "ZeDMD_ext")
+      .def(py::init())
+      .def("ClearScreen", &ZeDMD_ext::ClearScreen)
+      .def("SetRGBOrder", &ZeDMD_ext::SetRGBOrder)
+      .def("SetBrightness", &ZeDMD_ext::SetBrightness)
+      .def("Close", &ZeDMD_ext::Close)
+      .def("LedTest", &ZeDMD_ext::LedTest)
+      .def("Reset", &ZeDMD_ext::Reset)
+      .def("WhiteTest", &ZeDMD_ext::WhiteTest)
+      .def("RenderTest", &ZeDMD_ext::RenderTest)
+      .def("RenderRgb888", &ZeDMD_ext::RenderRgb888)
+      .def("SetUsbPackageSize", &ZeDMD_ext::SetUsbPackageSize)
+      .def("SetPanelMinRefreshRate", &ZeDMD_ext::SetPanelMinRefreshRate)
+      .def("SaveSettings", &ZeDMD_ext::SaveSettings)       
+  ;  
 }
