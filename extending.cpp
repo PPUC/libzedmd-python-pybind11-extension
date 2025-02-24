@@ -68,7 +68,7 @@ namespace { // Avoid cluttering the global namespace.
           for (int x = 0; x < 128; ++x)
           {
             i = (y * 128 + x);
-            index = (y * 128 + x) * 3;
+            index = i * 3;
             pImage[index++] = (image_data[i])[0];
             pImage[index++] = (image_data[i])[1];
             pImage[index] = (image_data[i])[2];
@@ -91,9 +91,6 @@ namespace { // Avoid cluttering the global namespace.
       }
       /** @brief Set the brightness
        *
-       *  Set the brightness of the LED panels.
-       *  @see https://github.com/PPUC/ZeDMD
-       *
        *  @param brightness a value between 0 and 15
        */
       void SetBrightness(uint8_t brightness){
@@ -112,10 +109,20 @@ namespace { // Avoid cluttering the global namespace.
         pZeDMD->SetUsbPackageSize(usbPackageSize);
       }
 
+      /** @brief Save settings previously set 
+       * 
+       * Save Brightness, RGBOrder, UsbPackageSize, PanelMinRefreshRate, ...
+       * New settings will be apllied after next ZeDMD start or reset
+      */     
       void SaveSettings() {
         pZeDMD->SaveSettings();
       }
     
+      void Reset() { 
+        pZeDMD->Reset();
+        std::this_thread::sleep_for(std::chrono::seconds(2));        
+      }
+
       void LedTest() { 
         pZeDMD->LedTest();
       }
@@ -179,6 +186,7 @@ PYBIND11_MODULE(extending, m)
         .def("SetBrightness", &ZeDMD_ext::SetBrightness)
         .def("Close", &ZeDMD_ext::Close)
         .def("LedTest", &ZeDMD_ext::LedTest)
+        .def("Reset", &ZeDMD_ext::Reset)
         .def("WhiteTest", &ZeDMD_ext::WhiteTest)
         .def("RenderTest", &ZeDMD_ext::RenderTest)
         .def("RenderRgb888", &ZeDMD_ext::RenderRgb888)

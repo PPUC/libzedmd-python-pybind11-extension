@@ -14,11 +14,12 @@ libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/l
 from build.extending import ZeDMD_ext
 
 ZeDMD = ZeDMD_ext()
-# ZeDMD.SetBrightness(7)
+ZeDMD.SetBrightness(6)
 # ZeDMD.SetRGBOrder(3) 
 # ZeDMD.SetUsbPackageSize(1024)
 # ZeDMD.SetPanelMinRefreshRate(60)
-# ZeDMD.SaveSettings()
+ZeDMD.SaveSettings()
+ZeDMD.Reset()
 
 image = Image.open("test.jpg")
 image = image.convert('RGB')
