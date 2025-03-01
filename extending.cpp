@@ -152,6 +152,9 @@ namespace { // Avoid cluttering the global namespace.
         free(rgb888);
       }
 
+      const uint16_t &getWidth() const { return width; }
+      const uint16_t &getHeight() const { return height; }
+
     private:
       ZeDMD* pZeDMD;
       uint16_t width;
@@ -176,6 +179,8 @@ PYBIND11_MODULE(extending, m)
       .def("RenderRgb888", &ZeDMD_ext::RenderRgb888)
       .def("SetUsbPackageSize", &ZeDMD_ext::SetUsbPackageSize)
       .def("SetPanelMinRefreshRate", &ZeDMD_ext::SetPanelMinRefreshRate)
-      .def("SaveSettings", &ZeDMD_ext::SaveSettings)       
+      .def("SaveSettings", &ZeDMD_ext::SaveSettings) 
+      .def("getWidth", &ZeDMD_ext::getWidth)   
+      .def("getHeight", &ZeDMD_ext::getHeight)
   ;  
 }
