@@ -27,15 +27,15 @@ namespace { // Avoid cluttering the global namespace.
   class ZeDMD_ext
   {
     public:
-      ZeDMD_ext() { 
+      ZeDMD_ext(uint16_t x = 128, uint16_t y = 32) { 
         pZeDMD = new ZeDMD();
         
         pZeDMD->SetLogCallback(LogCallback, nullptr);
         
         if (pZeDMD->Open()) {
           pZeDMD->DisableDebug();
-          width = pZeDMD->GetWidth();
-          height = pZeDMD->GetHeight();
+          width = x;
+          height = y;
           pZeDMD->SetFrameSize(width, height);
           pZeDMD->DisableUpscaling();
         } else {
@@ -71,12 +71,16 @@ namespace { // Avoid cluttering the global namespace.
       void SetRGBOrder(uint8_t rgbOrder){
         pZeDMD->SetRGBOrder(rgbOrder);
       }
-      /** @brief Set the brightness
+      /** @brief Set the brightness for the next start
        *
        *  @param brightness a value between 0 and 15
        */
       void SetBrightness(uint8_t brightness){
         pZeDMD->SetBrightness(brightness);
+      }
+
+      uint8_t GetBrightness(){
+        return pZeDMD->GetBrightness();
       }
       
       void SetPanelMinRefreshRate(uint8_t minRefreshRate){
@@ -152,8 +156,8 @@ namespace { // Avoid cluttering the global namespace.
         free(rgb888);
       }
 
-      const uint16_t &getWidth() const { return width; }
-      const uint16_t &getHeight() const { return height; }
+      const uint16_t &GetWidth() const { return width; }
+      const uint16_t &GetHeight() const { return height; }
 
     private:
       ZeDMD* pZeDMD;
@@ -180,7 +184,8 @@ PYBIND11_MODULE(extending, m)
       .def("SetUsbPackageSize", &ZeDMD_ext::SetUsbPackageSize)
       .def("SetPanelMinRefreshRate", &ZeDMD_ext::SetPanelMinRefreshRate)
       .def("SaveSettings", &ZeDMD_ext::SaveSettings) 
-      .def("getWidth", &ZeDMD_ext::getWidth)   
-      .def("getHeight", &ZeDMD_ext::getHeight)
+      .def("GetWidth", &ZeDMD_ext::GetWidth)   
+      .def("GetHeight", &ZeDMD_ext::GetHeight)
+      .def("GetBrightness", &ZeDMD_ext::GetBrightness)
   ;  
 }
