@@ -1,5 +1,5 @@
 # libzedmd-python-pybind11-extension
-Project created to use libzedmd with python (using pybind11)
+Project created to use https://github.com/PPUC/libzedmd with python (using pybind11)
 
 
 ## Requirements
