@@ -2,7 +2,7 @@ name: Build on Linux
 run-name: ${{ github.actor }} is building on Linux🚀
 on: [workflow_dispatch]
 jobs:
-  Clone-Repository:
+  Build-on-Linux:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was triggered by a ${{ github.event_name }} event."
@@ -12,14 +12,6 @@ jobs:
         uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to exec code on the runner."
-  Build-libZeDMD:
-    needs: Clone-Repository
-    # Build on <Linux, Release, latest GCC compiler toolchain on the default runner image, default generator>
-    runs-on: ubuntu-latest
-    strategy:
-      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
-      fail-fast: false
-    steps:
       - name: List files in github.workspace
         run: |
           ls ${{ github.workspace }}
@@ -29,6 +21,9 @@ jobs:
       - name: List files in extern/libzedmd
         run: |
           ls ${{ github.workspace }}/extern/libzedmd
+      - name: list
+        working-directory: extern/libzedmd/
+        run: ls
       - name: Prerequisite for libzedmd
         working-directory: extern/libzedmd/
         run: platforms/linux/x64/external.sh
@@ -44,12 +39,6 @@ jobs:
       - name: Build
         working-directory: extern/libzedmd/
         run: cmake --build build
-  Build-CPP-Extend:
-    needs: Build-libZeDMD
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
       - name: Build extend
         working-directory: ${{ github.workspace }}
         run: |
