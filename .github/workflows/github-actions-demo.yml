@@ -20,6 +20,15 @@ jobs:
       # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
       fail-fast: false
     steps:
+      - name: List files in github.workspace
+        run: |
+          ls ${{ github.workspace }}
+      - name: List files in extern
+        run: |
+          ls ${{ github.workspace }}/extern
+      - name: List files in extern/libzedmd
+        run: |
+          ls ${{ github.workspace }}/extern/libzedmd
       - name: Prerequisite for libzedmd
         working-directory: extern/libzedmd/
         run: platforms/linux/x64/external.sh
