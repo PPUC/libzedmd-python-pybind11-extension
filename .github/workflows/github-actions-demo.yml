@@ -11,8 +11,49 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+<<<<<<< Updated upstream
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+=======
+      - run: echo "🖥️ The workflow is now ready to exec code on the runner."
+  Build-libZeDMD:
+    needs: Clone-Repository
+    # Build on <Linux, Release, latest GCC compiler toolchain on the default runner image, default generator>
+    runs-on: ubuntu-latest
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: false
+    steps:
+      - name: Prerequisite for libzedmd
+        working-directory: extern/libzedmd/
+        run: platforms/linux/x64/external.sh
+      - name: Configure CMake
+        working-directory: extern/libzedmd/
+        run: |
+          cmake -DPLATFORM=linux
+          -DARCH=x64
+          -DCMAKE_BUILD_TYPE=Release
+          -B build
+          -DCMAKE_CXX_COMPILER=g++
+          -DCMAKE_C_COMPILER=gcc
+      - name: Build
+        working-directory: extern/libzedmd/
+        run: cmake --build build
+  Build-CPP-Extend:
+    needs: Build-libZeDMD
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Build extend
+        working-directory: ${{ github.workspace }}
+        run: |
+          g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include
+          -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp
+          -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
+
+
+>>>>>>> Stashed changes
