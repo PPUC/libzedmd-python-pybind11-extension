@@ -17,13 +17,7 @@ jobs:
       - name: List files in github.workspace
         run: |
           ls ${{ github.workspace }}
-      - name: List files in extern
-        run: |
-          ls ${{ github.workspace }}/extern
       - name: List files in extern/libzedmd
-        run: |
-          ls ${{ github.workspace }}/extern/libzedmd
-      - name: list
         working-directory: extern/libzedmd/
         run: ls
       - name: Prerequisite for libzedmd
@@ -40,3 +34,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
+      - name: List files in build
+        working-directory: build/
+        run: ls
+        
