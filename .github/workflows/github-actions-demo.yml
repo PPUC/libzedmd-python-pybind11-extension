@@ -32,11 +32,7 @@ jobs:
       - name: Configure CMake
         working-directory: extern/libzedmd/
         run: |
-          cmake -DPLATFORM=linux
-          -DCMAKE_BUILD_TYPE=Release
-          -B build
-          -DCMAKE_CXX_COMPILER=g++
-          -DCMAKE_C_COMPILER=gcc
+          cmake -DPLATFORM=linux -DARCH=x64 -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
       - name: Build
         working-directory: extern/libzedmd/
         run: cmake --build build
