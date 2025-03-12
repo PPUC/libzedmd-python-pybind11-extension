@@ -33,7 +33,6 @@ jobs:
         working-directory: extern/libzedmd/
         run: |
           cmake -DPLATFORM=linux
-          -DARCH=x64
           -DCMAKE_BUILD_TYPE=Release
           -B build
           -DCMAKE_CXX_COMPILER=g++
