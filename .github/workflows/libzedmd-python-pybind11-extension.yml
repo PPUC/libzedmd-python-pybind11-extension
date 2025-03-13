@@ -89,12 +89,12 @@ jobs:
         with:
           compiler: gcc
           cppcheck: true # instead of `true`, which chooses the default version, you can pass a specific version.
-      
+
       - name: Build libzedmd-python-python-extension
         run: |
           rm -Rf build/${{ matrix.platform }}-${{ matrix.arch }}
           mkdir -p build/${{ matrix.platform }}-${{ matrix.arch }}
-          gcc -xc++ -lstdc++ -shared -O3 -Wall -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/${{ matrix.platform }}-${{ matrix.arch }}/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
+          gcc -xc++ -lstdc++ -std=c++11 -stdlib=libc++ -shared -O3 -Wall -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/${{ matrix.platform }}-${{ matrix.arch }}/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
 
       - name: List files in build
         working-directory: build/
