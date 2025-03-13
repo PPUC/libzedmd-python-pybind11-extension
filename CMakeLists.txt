@@ -11,7 +11,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall")
 
 # Trouver Python (utilisé pour obtenir les paramètres d'inclusion et de suffixe)
 find_package(Python3 REQUIRED)
-find_package(pybind11 REQUIRED)
 include_directories(${Python3_INCLUDE_DIRS})
 
 # Ajouter les chemins d'inclusion externes
