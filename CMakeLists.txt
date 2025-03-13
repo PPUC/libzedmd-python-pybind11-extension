@@ -20,7 +20,7 @@ include_directories(
 )
 
 # Ajouter le fichier source
-pybind11_add_module(extending extending.cpp)
+add_library(extending extending.cpp)
 
 # Ajouter les répertoires de bibliothèque
 target_link_directories(extending PRIVATE
