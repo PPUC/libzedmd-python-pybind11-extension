@@ -19,6 +19,9 @@ include_directories(
     extern/libzedmd/src
 )
 
+# Ajouter le fichier source
+pybind11_add_module(extending extending.cpp)
+
 # Ajouter les répertoires de bibliothèque
 target_link_directories(extending PRIVATE
     extern/libzedmd/build
@@ -41,5 +44,3 @@ set_target_properties(extending
     SUFFIX ${Python3_EXTENSION_SUFFIX}
 )
 
-# Ajouter le fichier source
-pybind11_add_module(extending extending.cpp)

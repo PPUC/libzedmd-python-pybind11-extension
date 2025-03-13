@@ -84,12 +84,6 @@ jobs:
              cmake --build build -- -j${NUM_PROCS}
           fi
 
-      - name: Setup Cpp
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc
-          cppcheck: true # instead of `true`, which chooses the default version, you can pass a specific version.
-
       - name: Build libzedmd-python-python-extension
         run: |
           rm -Rf build/${{ matrix.platform }}-${{ matrix.arch }}
