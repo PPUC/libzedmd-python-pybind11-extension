@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 
 set(PLATFORM "win" CACHE STRING "Platform")
 set(ARCH "x64" CACHE STRING "Arch")
+set(WIN64 "")
 
 message(STATUS "PLATFORM: ${PLATFORM}")
 message(STATUS "ARCH: ${ARCH}")
@@ -22,6 +23,8 @@ project(extending DESCRIPTION "Python cross-platform library for communicating w
 if(PLATFORM STREQUAL "win")
    if(ARCH STREQUAL "x86")
       add_compile_definitions(WIN32)
+   elif(ARCH STREQUAL "x64")
+      set(WIN64 "64")
    endif()
 elseif(PLATFORM STREQUAL "macos")
    if (ARCH STREQUAL "arm64")
@@ -65,7 +68,7 @@ target_link_directories(extending PRIVATE
 
 target_link_libraries(extending PRIVATE
     ${Python3_LIBRARIES}  
-    zedmd
+    zedmd${WIN64}
     serialport
 )
 
