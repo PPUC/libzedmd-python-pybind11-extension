@@ -63,6 +63,7 @@ add_library(extending SHARED extending.cpp)
 
 target_link_directories(extending PRIVATE
     extern/libzedmd/build
+    extern/libzedmd/third-party/build-libs/${PLATFORM}/${ARCH}
 )
 
 target_link_libraries(extending PRIVATE
