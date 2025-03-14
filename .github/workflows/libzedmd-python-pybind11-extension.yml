@@ -45,12 +45,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: windows-latest, platform: win, arch: x64, type: Release }
+#          - { os: windows-latest, platform: win, arch: x64, type: Release }
           - { os: windows-latest, platform: win, arch: x86, type: Release }
-          - { os: macos-latest, platform: macos, arch: arm64, type: Release }
+#          - { os: macos-latest, platform: macos, arch: arm64, type: Release }
           - { os: macos-latest, platform: macos, arch: x64, type: Release }
-          - { os: ubuntu-latest, platform: linux, arch: x64, type: Release }
-          - { os: ubuntu-24.04-arm, platform: linux, arch: aarch64, type: Release }
+#          - { os: ubuntu-latest, platform: linux, arch: x64, type: Release }
+#          - { os: ubuntu-24.04-arm, platform: linux, arch: aarch64, type: Release }
     steps:
       - uses: actions/checkout@v4
         with:
@@ -65,7 +65,7 @@ jobs:
       
       - if: (matrix.platform == 'macos')&&(matrix.arch == 'x64')
         name: Set up Python x64
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           architecture: 'x64'
           python-version: 3.11.9       
