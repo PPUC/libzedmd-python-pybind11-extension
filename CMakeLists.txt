@@ -34,7 +34,7 @@ elseif(PLATFORM STREQUAL "macos")
 #elseif(PLATFORM STREQUAL "linux")
 #   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 #   set(CMAKE_INSTALL_RPATH "$ORIGIN")
-#endif()
+endif()
 
 # C++ version to use
 set(CMAKE_CXX_STANDARD 11)
