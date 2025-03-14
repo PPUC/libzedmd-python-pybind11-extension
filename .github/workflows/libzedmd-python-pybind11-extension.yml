@@ -68,7 +68,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           architecture: 'x64'
-          python-version: 3.11       
+          python-version: 3.11.9       
       - name: Display Python version
         run: python --version
       - name: Wich python
