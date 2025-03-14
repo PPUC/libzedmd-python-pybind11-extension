@@ -92,7 +92,7 @@ jobs:
                 cmake -G "Visual Studio 17 2022" -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B ..
              elif [[ "${{ matrix.arch }}" == "x86" ]]; then
                 cmake -G "Visual Studio 17 2022" -A Win32 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B ..
-             elif [[ "${{ matrix.arch }}" == "arm64" ]]; ..
+             elif [[ "${{ matrix.arch }}" == "arm64" ]]; then
                 cmake -G "Visual Studio 17 2022" -A ARM64 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B ..
              fi
              cmake --build . --config ${{ matrix.type }}
@@ -105,6 +105,7 @@ jobs:
              cmake -DCMAKE_BUILD_TYPE=${{ matrix.type }} -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -B ..
              cmake --build . -- -j${NUM_PROCS}
           fi
+
       - name: List files in build
         working-directory: build/
         run: ls -a
