@@ -88,9 +88,11 @@ jobs:
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
-          ls  ../extern/libzedmd/build
+          ls ../extern/libzedmd/build
           echo '--------------------------------------'
-          ls  ../extern/libzedmd/third-party/build-libs/${{ matrix.platform }}/${{ matrix.arch }}
+          ls ../extern/libzedmd/third-party/build-libs/${{ matrix.platform }}/${{ matrix.arch }}
+          echo '--------------------------------------'
+          ls ../extern/libzedmd/build/${{ matrix.arch }}
           pwd
           rm -Rf ./*
           if [[ "${{ matrix.platform }}" == "win" ]]; then
