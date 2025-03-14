@@ -9,7 +9,7 @@ defaults:
 
 jobs:
   version:
-    name: Detect version
+    name: Detect libzedmd version
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.version.outputs.tag }}
@@ -36,6 +36,7 @@ jobs:
 #            echo "Error: Git tag (${GIT_TAG}) does not match version from ZeDMD.h (v${{ steps.version.outputs.tag }})"
 #            exit 1
 #          fi
+
   build:
     name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.type }}
     runs-on: ${{ matrix.os }}

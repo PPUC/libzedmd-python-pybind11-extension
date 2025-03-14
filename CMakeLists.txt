@@ -1,10 +1,48 @@
 cmake_minimum_required(VERSION 3.17)
 
+set(PLATFORM "win" CACHE STRING "Platform")
+set(ARCH "x64" CACHE STRING "Arch")
+
+message(STATUS "PLATFORM: ${PLATFORM}")
+message(STATUS "ARCH: ${ARCH}")
+
+if(PLATFORM STREQUAL "macos")
+   set(CMAKE_OSX_DEPLOYMENT_TARGET 14.0)
+   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -g")
+   endif()
+endif()
+
+
+
 # Projet name
-project(extending)
+project(extending DESCRIPTION "Python cross-platform library for communicating with ZeDMD.")
+
+if(PLATFORM STREQUAL "win")
+   if(ARCH STREQUAL "x86")
+      add_compile_definitions(WIN32)
+   endif()
+elseif(PLATFORM STREQUAL "macos")
+   if (ARCH STREQUAL "arm64")
+      set(CMAKE_OSX_ARCHITECTURES arm64)
+   elseif(ARCH STREQUAL "x64")
+      set(CMAKE_OSX_ARCHITECTURES x86_64)
+   endif()
+   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+   set(CMAKE_INSTALL_RPATH "@executable_path")
+elseif(PLATFORM STREQUAL "linux" OR PLATFORM STREQUAL "android")
+   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+   set(CMAKE_INSTALL_RPATH "$ORIGIN")
+endif()
 
 # C++ version to use
 set(CMAKE_CXX_STANDARD 11)
+
+
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+
 
 # Builtin option
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall")
