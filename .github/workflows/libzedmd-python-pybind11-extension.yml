@@ -69,7 +69,10 @@ jobs:
         with:
           architecture: 'x64'
           python-version: 3.11       
-
+      - name: Display Python version
+        run: python --version
+      - name: Wich python
+        run: which -a python
       - name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}
         working-directory: extern/libzedmd/
         run: |
