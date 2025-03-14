@@ -34,7 +34,7 @@ elseif(PLATFORM STREQUAL "macos")
       set(CMAKE_OSX_ARCHITECTURES arm64)
    elseif(ARCH STREQUAL "x64")
       set(CMAKE_OSX_ARCHITECTURES x86_64)
-      set(PYTHON_VERSION " ")
+      set(PYTHON_VERSION "")
    endif()
 #   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 #   set(CMAKE_INSTALL_RPATH "@executable_path")
@@ -56,7 +56,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 ")
 
 # Python3 needed
 
-find_package(Python3 ${PYTHON_VERSION} REQUIRED COMPONENTS Interpreter Development)
+find_package(Python3${PYTHON_VERSION} REQUIRED COMPONENTS Interpreter Development)
 
 include_directories(
     ${Python3_INCLUDE_DIRS}
