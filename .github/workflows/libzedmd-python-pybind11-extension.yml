@@ -89,6 +89,7 @@ jobs:
         working-directory: build/
         run: |
           ls  ../extern/libzedmd/build
+          ls  ../extern/libzedmd/third-party/build-libs/${{ matrix.platform }}/${{ matrix.arch }}
           pwd
           rm -Rf ./*
           if [[ "${{ matrix.platform }}" == "win" ]]; then
