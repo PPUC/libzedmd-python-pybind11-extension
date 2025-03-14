@@ -45,7 +45,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 # Builtin option
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Werror")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 ")
 
 # Python3 needed
 find_package (Python3 REQUIRED COMPONENTS Interpreter Development)
