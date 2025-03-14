@@ -60,10 +60,10 @@ add_library(extending SHARED extending.cpp)
 
 target_link_directories(extending PRIVATE
     extern/libzedmd/build
+    ../extern/libzedmd/build
 )
 
-target_link_libraries(extending
-    PRIVATE
+target_link_libraries(extending PRIVATE
     ${Python3_LIBRARIES}  
     zedmd
     serialport
