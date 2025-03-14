@@ -65,7 +65,6 @@ target_link_directories(extending PRIVATE
 target_link_libraries(extending
     PRIVATE
     ${Python3_LIBRARIES}  
-    pthread
     util
     zedmd
     serialport
