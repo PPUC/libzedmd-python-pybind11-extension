@@ -29,19 +29,19 @@ elseif(PLATFORM STREQUAL "macos")
    elseif(ARCH STREQUAL "x64")
       set(CMAKE_OSX_ARCHITECTURES x86_64)
    endif()
-   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-   set(CMAKE_INSTALL_RPATH "@executable_path")
-elseif(PLATFORM STREQUAL "linux" OR PLATFORM STREQUAL "android")
-   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-   set(CMAKE_INSTALL_RPATH "$ORIGIN")
-endif()
+#   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+#   set(CMAKE_INSTALL_RPATH "@executable_path")
+#elseif(PLATFORM STREQUAL "linux")
+#   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+#   set(CMAKE_INSTALL_RPATH "$ORIGIN")
+#endif()
 
 # C++ version to use
 set(CMAKE_CXX_STANDARD 11)
 
 
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_C_VISIBILITY_PRESET hidden)
+#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+#set(CMAKE_C_VISIBILITY_PRESET hidden)
 
 
 # Builtin option
