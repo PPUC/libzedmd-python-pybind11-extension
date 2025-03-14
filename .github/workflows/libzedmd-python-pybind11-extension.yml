@@ -62,6 +62,14 @@ jobs:
         name: Add autoconf and automake (mac runner)
         run: |
            brew install autoconf automake libtool
+      
+      - if: (matrix.platform == 'macos')&&(matrix.arch == 'x64')
+        name: Set up Python x64
+        uses: actions/setup-python@v3
+        with:
+          architecture: 'x64'
+          python-version: 3.11       
+
       - name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}
         working-directory: extern/libzedmd/
         run: |
@@ -88,12 +96,10 @@ jobs:
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
+          pwd
+          echo '--------------------------------------'
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
-          ls ../extern/libzedmd/third-party/build-libs/${{ matrix.platform }}/${{ matrix.arch }}
-          echo '--------------------------------------'
-          ls ../extern/libzedmd/build/${{ matrix.arch }}
-          pwd
           rm -Rf ./*
           if [[ "${{ matrix.platform }}" == "win" ]]; then
              if [[ "${{ matrix.arch }}" == "x64" ]]; then
