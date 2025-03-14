@@ -85,8 +85,9 @@ jobs:
           fi
 
       - name: Build libzedmd-python-python-extension
-        working-directory: build/
         run: |
+          cd build
+          pwd
           rm -Rf ./*
           if [[ "${{ matrix.platform }}" == "win" ]]; then
              if [[ "${{ matrix.arch }}" == "x64" ]]; then
