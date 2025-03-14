@@ -101,7 +101,8 @@ jobs:
         run: python -c "import sys; print(sys.version)"
 
       - name: Setting var PYTHON_INCLUDE_DIR
-        run : echo "PYTHON_INCLUDE_DIR=python -c '''import sysconfig; print(sysconfig.get_path('include'))''' " >> $GITHUB_ENV
+        run : echo "PYTHON_INCLUDE_DIR=$(python -c '''import sysconfig; print(sysconfig.get_path('include'))''') " >> $GITHUB_ENV
+
       - name: Test PYTHON_INCLUDE_DIR
         run: echo ${{ env.PYTHON_INCLUDE_DIR }}
 
