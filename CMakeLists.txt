@@ -45,7 +45,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 # Builtin option
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Werror")
 
 # Python3 needed
 find_package (Python3 REQUIRED COMPONENTS Interpreter Development)
@@ -65,7 +65,6 @@ target_link_directories(extending PRIVATE
 target_link_libraries(extending
     PRIVATE
     ${Python3_LIBRARIES}  
-    dl
     pthread
     util
     zedmd
