@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 
 set(PLATFORM "win" CACHE STRING "Platform")
 set(ARCH "x64" CACHE STRING "Arch")
-set(WIN64 " ")
+set(WIN64 "")
 
 message(STATUS "PLATFORM: ${PLATFORM}")
 message(STATUS "ARCH: ${ARCH}")
@@ -63,7 +63,6 @@ add_library(extending SHARED extending.cpp)
 
 target_link_directories(extending PRIVATE
     extern/libzedmd/build
-    ../extern/libzedmd/build
 )
 
 target_link_libraries(extending PRIVATE
