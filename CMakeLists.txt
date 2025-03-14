@@ -54,7 +54,10 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 ")
 
 # Python3 needed
 # find_package(PythonInterp)
-find_package(Python3 REQUIRED COMPONENTS Interpreter) # Development)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+
+message(DEBUG "Python3_INCLUDE_DIRS=${Python3_INCLUDE_DIRS}")
+message(DEBUG "Python3_LIBRARIES=${Python3_LIBRARIES}")
 
 include_directories(
     ${Python3_INCLUDE_DIRS}
