@@ -69,7 +69,7 @@ target_link_directories(extending PRIVATE
 target_link_libraries(extending PRIVATE
     ${Python3_LIBRARIES}  
     zedmd${WIN64}
-    serialport
+    serialport${WIN64}
 )
 
 set_target_properties(extending PROPERTIES 
