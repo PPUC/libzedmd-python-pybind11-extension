@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 set(PLATFORM "win" CACHE STRING "Platform")
 set(ARCH "x64" CACHE STRING "Arch")
 set(WIN64 "")
+set(LIB64 "")
 
 message(STATUS "PLATFORM: ${PLATFORM}")
 message(STATUS "ARCH: ${ARCH}")
@@ -25,6 +26,7 @@ if(PLATFORM STREQUAL "win")
       add_compile_definitions(WIN32)
    elseif(ARCH STREQUAL "x64")
       set(WIN64 "64")
+      set(LIB64 "lib")
    endif()
 elseif(PLATFORM STREQUAL "macos")
    if (ARCH STREQUAL "arm64")
@@ -69,7 +71,7 @@ target_link_directories(extending PRIVATE
 target_link_libraries(extending PRIVATE
     ${Python3_LIBRARIES}  
     zedmd${WIN64}
-    serialport${WIN64}
+    ${LIB64}serialport${WIN64}
 )
 
 set_target_properties(extending PROPERTIES 
