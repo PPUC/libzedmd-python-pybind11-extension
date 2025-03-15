@@ -55,7 +55,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 ")
 # Python3 needed
 if (NOT (PLATFORM STREQUAL "win") AND (ARCH STREQUAL "x86")) 
   find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-else
+else()
   set(Python3_INCLUDE_DIRS "?" CACHE STRING "PYTHON_INCLUDE_DIR")
   set(Python3_LIBRARIES "?" CACHE STRING "PYTHON_LIBRARY")
 endif()
