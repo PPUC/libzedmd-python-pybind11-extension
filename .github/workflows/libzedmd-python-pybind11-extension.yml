@@ -95,9 +95,13 @@ jobs:
         run : | 
           echo "import sysconfig; print(sysconfig.get_path('include'))" > temp_script.py
           echo "PYTHON_INCLUDE_DIR=$(python temp_script.py) " >> $GITHUB_ENV
+          echo "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))" > temp_script.py
+          echo "PYTHON_LIBRARY=$(python temp_script.py) " >> $GITHUB_ENV
 
       - name: Test PYTHON_INCLUDE_DIR
-        run: echo ${{ env.PYTHON_INCLUDE_DIR }}
+        run: |
+          echo "PYTHON_INCLUDE_DIR=${{ env.PYTHON_INCLUDE_DIR }}"
+          echo "PYTHON_LIBRARY=${{ env.PYTHON_LIBRARY }}"
 
       - name: Build libzedmd-python-python-extension
         working-directory: build/
@@ -111,7 +115,7 @@ jobs:
              if [[ "${{ matrix.arch }}" == "x64" ]]; then
                 cmake -G "Visual Studio 17 2022" -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} ..
              elif [[ "${{ matrix.arch }}" == "x86" ]]; then
-                cmake -G "Visual Studio 17 2022" -A Win32 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} ..
+                cmake -G "Visual Studio 17 2022" -A Win32 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} -DPYTHON_INCLUDE_DIR=${{ env.PYTHON_INCLUDE_DIR }} -DPYTHON_LIBRARY=${{ env.PYTHON_LIBRARY }} ..
              elif [[ "${{ matrix.arch }}" == "arm64" ]]; then
                 cmake -G "Visual Studio 17 2022" -A ARM64 -DPLATFORM=${{ matrix.platform }} -DARCH=${{ matrix.arch }} ..
              fi
