@@ -57,6 +57,7 @@ if (NOT (PLATFORM STREQUAL "win") AND (ARCH STREQUAL "x86"))
   find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 else
   set(Python3_INCLUDE_DIRS "?" CACHE STRING PYTHON_INCLUDE_DIR)
+  set(Python3_LIBRARIES "?" CACHE STRING PYTHON_LIBRARY)
 endif()
 
 message(STATUS "Python3_INCLUDE_DIRS=${Python3_INCLUDE_DIRS}")
