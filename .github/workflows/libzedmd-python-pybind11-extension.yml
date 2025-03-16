@@ -154,7 +154,7 @@ jobs:
             cp build/*extending*.lib tmp || true
             cp build/*extending*.dll tmp || true
           else
-            ARTIFACT_PATH="libzedmd-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
+            ARTIFACT_PATH="libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
             if [[ "${{ matrix.platform }}" == "macos" ]]; then
                cp extern/libzedmd/build/*zedmd*.a tmp || true
                cp -a extern/libzedmd/build/*serialport*.dylib tmp || true
@@ -227,8 +227,8 @@ jobs:
           files: |
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64.zip
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86.zip
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64/libzedmd-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64/libzedmd-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64/libzedmd-${{ needs.version.outputs.tag }}-linux-x64.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64/libzedmd-${{ needs.version.outputs.tag }}-linux-aarch64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64.tar.gz
