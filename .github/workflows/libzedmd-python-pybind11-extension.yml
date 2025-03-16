@@ -150,25 +150,20 @@ jobs:
           mkdir tmp
           if [[ "${{ matrix.platform }}" == "win" ]]; then
             ARTIFACT_PATH="tmp"
-            cp extern/libzedmd/build/${{ matrix.type }}/zedmd{64}.lib tmp || true
-            cp extern/libzedmd/build/${{ matrix.type }}/zedmd{64}.dll tmp || true
-            cp extern/libzedmd/build/${{ matrix.type }}/*serialport*.lib tmp || true
-            cp extern/libzedmd/build/${{ matrix.type }}/*serialport*.dll tmp || true 
-            cp build/${{ matrix.type }}/*extending*.lib tmp || true
-            cp build/${{ matrix.type }}/*extending*.dll tmp || true
+            cp extern/libzedmd/build/${{ matrix.type }}/zedmd{64}.lib tmp
+            cp extern/libzedmd/build/${{ matrix.type }}/zedmd{64}.dll tmp
+            cp extern/libzedmd/build/${{ matrix.type }}/libserialport{64}.lib tmp
+            cp extern/libzedmd/build/${{ matrix.type }}/libserialport{64}.dll tmp
+            cp build/${{ matrix.type }}/extending.lib tmp
+            cp build/${{ matrix.type }}/extending.dll tmp
           else
             ARTIFACT_PATH="libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
+            cp extern/libzedmd/build/libzedmd.* tmp
+            cp extern/libzedmd/build/libserialport.* tmp
             if [[ "${{ matrix.platform }}" == "macos" ]]; then
-               cp extern/libzedmd/build/*zedmd*.a tmp || true
-               cp -a extern/libzedmd/build/*serialport*.dylib tmp || true
-               cp -a extern/libzedmd/build/*zedmd*.dylib tmp || true
-               cp build/*extending*.a tmp || true
-               cp -a build/*extending*.dylib tmp || true
+              cp build/extending.dylib tmp
             elif [[ "${{ matrix.platform }}" == "linux" ]]; then
-               cp extending/*zedmd*.a tmp || true
-               cp extern/libzedmd/build/*serialport*.{so,so.*} tmp || true
-               cp extern/libzedmd/build/*zedmd*.{so,so.*} tmp || true
-               cp build/extending.so tmp || true
+              cp build/extending.so tmp
             fi
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
