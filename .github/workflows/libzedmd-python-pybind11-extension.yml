@@ -69,8 +69,8 @@ jobs:
       - name: Which python
         run: which -a python
 
-      - name: Find python
-        run: find C:/hostedtoolcache/windows/ -name 'python39.lib'
+#      - name: Find python
+#        run: find C:/hostedtoolcache/windows/ -name 'python3*.lib'
 
       - name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}
         working-directory: extern/libzedmd/
@@ -101,7 +101,7 @@ jobs:
           echo "import sysconfig; print(sysconfig.get_path('include').replace('\\\\','/'))" > temp_script.py
           echo "PYTHON_INCLUDE_DIR=$(python temp_script.py)" >> $GITHUB_ENV
           echo "import os; import sys; print(os.path.dirname(sys.executable).replace('\\\\','/'))" > temp_script.py
-          echo "PYTHON_LIBRARY=$(python temp_script.py)/Lib" >> $GITHUB_ENV
+          echo "PYTHON_LIBRARY=$(python temp_script.py)/libs" >> $GITHUB_ENV
 
       - if: (matrix.platform == 'win') && (matrix.arch == 'x86')
         name: Testing vars for win-x86
