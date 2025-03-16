@@ -137,9 +137,12 @@ jobs:
              cmake --build . -- -j${NUM_PROCS}
           fi
 
-      - name: List files in build
+      - name: List files in builds
         working-directory: build/
-        run: ls -R
+        run: |
+          ls -R
+          echo '-----------------------------------'
+          ls -R extern/libzedmd/build
 
       - name: Prepare artifacts
         id: artifacts
@@ -162,11 +165,10 @@ jobs:
                cp build/*extending*.a tmp || true
                cp -a build/*extending*.dylib tmp || true
             elif [[ "${{ matrix.platform }}" == "linux" ]]; then
-               cp extern/libzedmd/build/*zedmd*.a tmp || true
+               cp extending/*zedmd*.a tmp || true
                cp extern/libzedmd/build/*serialport*.{so,so.*} tmp || true
                cp extern/libzedmd/build/*zedmd*.{so,so.*} tmp || true
-               cp build/*extending*.a tmp || true
-               cp build/*extending*.{so,so.*} tmp || true
+               cp build/extending.so tmp || true
             fi
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
