@@ -49,6 +49,12 @@ jobs:
       - if: (matrix.platform == 'win')
         name: Add msbuild to path (win runner)
         uses: microsoft/setup-msbuild@v2
+      - if: (matrix.platform == 'win') && (matrix.arch == 'x86')
+        name: Set up Python x86
+        uses: actions/setup-python@v5
+        with:
+          architecture: 'x86'
+          python-version: 3.9.13       
       - if: (matrix.platform == 'macos') && (matrix.arch == 'x64')
         name: Set up Python x64
         uses: actions/setup-python@v5
@@ -107,8 +113,6 @@ jobs:
         working-directory: build/
         run: |
           pwd
-          echo '--------------------------------------'
-          ls -R ../extern/libzedmd/external/libserialport
           echo '--------------------------------------'
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
