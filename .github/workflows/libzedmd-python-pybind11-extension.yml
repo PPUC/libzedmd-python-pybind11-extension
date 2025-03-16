@@ -231,8 +231,8 @@ jobs:
           files: |
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64.zip
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86.zip
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64.tar.gz
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-x64.tar.gz
+            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-linux-aarch64.tar.gz
