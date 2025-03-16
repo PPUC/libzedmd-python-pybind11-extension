@@ -7,7 +7,7 @@ set(ARCH "x64" CACHE STRING "Arch")
 set(PYTHON_INCLUDE_DIR "?" CACHE STRING "PYTHON_INCLUDE_DIR")
 set(PYTHON_LIBRARY "?" CACHE STRING "PYTHON_LIBRARY")
 set(WIN64 "")
-set(LIB64 "")
+set(LIBWIN "")
 
 message(STATUS "2. PYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}")
 
@@ -33,7 +33,7 @@ if(PLATFORM STREQUAL "win")
   elseif(ARCH STREQUAL "x64")
     set(WIN64 "64")
   endif()
-  set(LIB64 "lib")
+  set(LIBWIN "lib")
 elseif(PLATFORM STREQUAL "macos")
   if (ARCH STREQUAL "arm64")
     set(CMAKE_OSX_ARCHITECTURES arm64)
@@ -62,9 +62,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 ")
 if (NOT ((PLATFORM STREQUAL "win") AND (ARCH STREQUAL "x86")))
   find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 else()
-  # set(Python3_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
+  set(Python3_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
   set(Python3_LIBRARIES "${PYTHON_LIBRARY}")
-  set(Python3_INCLUDE_DIRS "C:/hostedtoolcache/windows/Python/3.9.13/x64/Include")
+  # set(Python3_INCLUDE_DIRS "C:/hostedtoolcache/windows/Python/3.9.13/x64/Include")
 endif()
 
 message(STATUS "Python3_INCLUDE_DIRS=${Python3_INCLUDE_DIRS}")
@@ -84,9 +84,9 @@ target_link_directories(extending PRIVATE
 )
 
 target_link_libraries(extending PRIVATE
-#    ${Python3_LIBRARIES}  
+    ${Python3_LIBRARIES}  
     zedmd${WIN64}
-    ${LIB64}serialport${WIN64}
+    ${LIBWIN}serialport${WIN64}
 )
 
 set_target_properties(extending PROPERTIES 
