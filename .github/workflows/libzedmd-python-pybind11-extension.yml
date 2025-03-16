@@ -60,8 +60,6 @@ jobs:
         run: |
             brew install autoconf automake libtool
         
-      - name: Display Python version
-        run: python --version
       - name: Which python
         run: which -a python
 
@@ -95,9 +93,9 @@ jobs:
         name: Setting vars for win-x86
         run : | 
           echo "import sysconfig; print(sysconfig.get_path('include').replace('\\\\','/'))" > temp_script.py
-          echo "PYTHON_INCLUDE_DIR=$(python temp_script.py) " >> $GITHUB_ENV
+          echo "PYTHON_INCLUDE_DIR=$(python temp_script.py)" >> $GITHUB_ENV
           echo "import os; import sys; print(os.path.dirname(sys.executable).replace('\\\\','/'))" > temp_script.py
-          echo "PYTHON_LIBRARY=$(python temp_script.py) " >> $GITHUB_ENV
+          echo "PYTHON_LIBRARY=$(python temp_script.py)" >> $GITHUB_ENV
 
       - if: (matrix.platform == 'win') && (matrix.arch == 'x86')
         name: Testing vars for win-x86
