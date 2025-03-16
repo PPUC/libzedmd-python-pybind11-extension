@@ -142,7 +142,7 @@ jobs:
         run: |
           ls -R
           echo '-----------------------------------'
-          ls -R extern/libzedmd/build
+          ls -R ../extern/libzedmd/build
 
       - name: Prepare artifacts
         id: artifacts
