@@ -103,13 +103,11 @@ jobs:
         name: Testing vars for win-x86
         run: |
           echo "PYTHON_INCLUDE_DIR=${{ env.PYTHON_INCLUDE_DIR }}"
-          echo "PYTHON_LIBRARY=${{ env.PYTHON_LIBRARY }}"
+          echo "PYTHON_LIBRARY=${{ env.PYTHON_LIBRARY }}/Lib"
 
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
-          pwd
-          echo '--------------------------------------'
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
           rm -Rf ./*
