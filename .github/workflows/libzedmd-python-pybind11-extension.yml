@@ -93,7 +93,7 @@ jobs:
 
       - name: Setting var PYTHON_INCLUDE_DIR for win-x86
         run : | 
-          echo "import sysconfig; print(sysconfig.get_path('include').replace('\\','/'))" > temp_script.py
+          echo "import sysconfig; print(sysconfig.get_path('include').replace('\\\\','/'))" > temp_script.py
           echo "PYTHON_INCLUDE_DIR=$(python temp_script.py) " >> $GITHUB_ENV
           echo "import sysconfig; print(sysconfig.get_config_var('LDLIBRARY'))" > temp_script.py
           echo "PYTHON_LIBRARY=$(python temp_script.py) " >> $GITHUB_ENV
