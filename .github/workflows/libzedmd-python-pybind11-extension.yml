@@ -49,6 +49,12 @@ jobs:
       - if: (matrix.platform == 'win')
         name: Add msbuild to path (win runner)
         uses: microsoft/setup-msbuild@v2
+      - if: (matrix.platform == 'win') && (matrix.arch == 'x86')
+        name: Set up Python x86
+        uses: actions/setup-python@v5
+        with:
+          architecture: 'x86'
+          python-version: 3.11.9       
       - if: (matrix.platform == 'macos') && (matrix.arch == 'x64')
         name: Set up Python x64
         uses: actions/setup-python@v5
@@ -103,7 +109,7 @@ jobs:
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
-          find c:/ -name 'python39.lib'
+          find C:/hostedtoolcache/windows/ -name 'python39.lib'
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
           rm -Rf ./*
