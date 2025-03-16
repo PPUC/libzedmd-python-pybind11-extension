@@ -64,7 +64,7 @@ if (NOT ((PLATFORM STREQUAL "win") AND (ARCH STREQUAL "x86")))
 else()
   # set(Python3_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
   set(Python3_LIBRARIES "${PYTHON_LIBRARY}")
-  set(Python3_INCLUDE_DIRS "C:\hostedtoolcache\windows\Python\3.9.13\x64\Include")
+  set(Python3_INCLUDE_DIRS "C:/hostedtoolcache/windows/Python/3.9.13/x64/Include")
 endif()
 
 message(STATUS "Python3_INCLUDE_DIRS=${Python3_INCLUDE_DIRS}")
