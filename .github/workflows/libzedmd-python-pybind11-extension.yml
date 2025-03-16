@@ -175,6 +175,47 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: libzedmd-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.type }}
+          name: libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.type }}
           path: ${{ steps.artifacts.outputs.artifact_path }}
+
+  post-build:
+    runs-on: macos-latest
+    needs: [ version, build ]
+    name: Build libzedmd-macos
+    steps:
+      - uses: actions/download-artifact@v4
+      - name: Unpack artifacts
+        run: |
+          cd libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64-Release
+          tar -xzvf libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
+          cd ..
+          cd libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64-Release
+          tar -xzvf libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
+      - name: Combine macos architectures
+        run: |
+          mkdir tmp
+          find "libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64-Release" -name "*.dylib" | while read -r file; do
+            if [ -L "$file" ]; then
+              cp -a "$file" "tmp/"
+            elif [ -f "$file" ]; then
+              filename=$(basename "$file")
+              lipo -create -output "tmp/$filename" \
+                "libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64-Release/$filename" \
+                "libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64-Release/$filename"
+            fi
+          done          
+      - name: Prepare artifacts
+        run: |
+          cd tmp
+          tar -czvf ../libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos.tar.gz *
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-Release
+          path: libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos.tar.gz
+      - name: Package
+#        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          zip -r libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64.zip libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64-Release
+          zip -r libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86.zip libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86-Release          
 
