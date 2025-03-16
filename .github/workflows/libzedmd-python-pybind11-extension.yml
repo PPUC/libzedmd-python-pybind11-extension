@@ -69,6 +69,9 @@ jobs:
       - name: Which python
         run: which -a python
 
+      - name: Find python
+        run: find C:/hostedtoolcache/windows/ -name 'python39.lib'
+
       - name: Build libzedmd-${{ matrix.platform }}-${{ matrix.arch }}
         working-directory: extern/libzedmd/
         run: |
@@ -109,7 +112,6 @@ jobs:
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
-          find C:/hostedtoolcache/windows/ -name 'python39.lib'
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
           rm -Rf ./*
