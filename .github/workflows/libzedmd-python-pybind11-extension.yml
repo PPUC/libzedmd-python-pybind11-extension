@@ -103,7 +103,6 @@ jobs:
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
-          find c/hostedtoolcache/windows -name "*python39.lib" 
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
           rm -Rf ./*
