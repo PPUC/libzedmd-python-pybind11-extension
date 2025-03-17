@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <chrono>
 #include <cstring>
-#include <thread>
 #include <cstdint>
 
 #include <ZeDMD.h>
