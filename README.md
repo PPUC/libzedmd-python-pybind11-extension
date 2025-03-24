@@ -52,7 +52,7 @@ cmake --build . --config Release
 ### Running
 If needed :
 
-  pip install pillow,
+  pip install pillow
   
   pip install numpy
 
