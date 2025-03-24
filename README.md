@@ -12,7 +12,9 @@ Demo of MPF use : https://github.com/PPUC/MPF-pinball-ZeDMD-demo
 ## Windows 64
 ### Requirements
 Install Python (Check Add Python to system PATH)
+
 Install Pip if needed : python -m ensurepip --upgrade
+
 Install Pybind11 : pip install pybind11
 
 Install Visual Studio Build Tools (Check C++ build tools with : MSVC v142, Windows SDK and Clang)
@@ -49,7 +51,9 @@ cmake --build . --config Release
 
 ### Running
 If needed :
-  pip install pillow
+
+  pip install pillow,
+  
   pip install numpy
 
 ```shell
