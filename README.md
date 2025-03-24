@@ -9,21 +9,67 @@ To be used into MPF, MPF code needs to be changed like this : https://github.com
 
 Demo of MPF use : https://github.com/PPUC/MPF-pinball-ZeDMD-demo
 
-## Requirements
-```shell
-pip install pillow
-pip install numpy
+## Windows 64
+### Requirements
+Install Python (Check Add Python to system PATH)
+Install Pip if needed : python -m ensurepip --upgrade
+Install Pybind11 : pip install pybind11
 
+Install Visual Studio Build Tools (Check C++ build tools with : MSVC v142, Windows SDK and Clang)
+
+Install Cmake.msi from the official website (Check Add Cmake to system PATH)
+
+Check installs by launching VS Build Tools Console:
+```shell
+python --version
+
+pip --version
+
+python
+>>> import pybind11
+>>> print(pybind11.__version__)
+>>> exit()
+
+cl
+
+cmake --version
+```
+
+How to build :
+```shell
+cd extern/libzedmd/
+platforms/win/x64/external.sh
+cmake -G "Visual Studio 17 2022" -DPLATFORM=win -DARCH=x64 -B build
+cmake --build build --config Release
+
+cd ../../build
+cmake ..
+cmake --build . --config Release
+```
+
+### Running
+If needed :
+  pip install pillow
+  pip install numpy
+
+```shell
+python extending.py 
+```
+
+## Linux
+### Requirements
+```shell
 cd extern/libzedmd/
 platforms/linux/x64/external.sh
 cmake -DPLATFORM=linux -DARCH=x64 -DCMAKE_BUILD_TYPE=Release -B build
 cmake --build build
 
 cd ../..
+pip install pillow
 ./extending_build
 ```
 
-## Running
+### Running
 ```shell
 python extending.py 
 ```
