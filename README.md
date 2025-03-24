@@ -1,7 +1,7 @@
 # libzedmd-python-pybind11-extension
 Project created to use https://github.com/PPUC/libzedmd with python (using pybind11)
 
-Currently : Tested on Linux
+** Currently : Tested on Linux **
 
 More info : https://github.com/PPUC/ZeDMD
 
