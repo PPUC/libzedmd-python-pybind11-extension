@@ -3,7 +3,8 @@ Project created to use https://github.com/PPUC/libzedmd with python (using pybin
 
 More info : https://github.com/PPUC/ZeDMD
 
-To be used into MPF, MPF code needs to be modified like this : https://github.com/missionpinball/mpf/compare/0.80.x...PPUC:mpf-zedmd:0.80.x
+To be used into MPF, MPF code needs to be changed like this : https://github.com/missionpinball/mpf/compare/0.80.x...PPUC:mpf-zedmd:0.80.x
+Demo of MPF use : https://github.com/PPUC/MPF-pinball-ZeDMD-demo
 
 ## Requirements
 ```shell
