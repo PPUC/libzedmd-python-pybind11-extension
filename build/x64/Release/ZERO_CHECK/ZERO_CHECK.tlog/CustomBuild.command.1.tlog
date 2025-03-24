@@ -1,0 +1,10 @@
+^D:\DOCUMENTS\GITHUB\LIBZEDMD-PYTHON-PYBIND11-EXTENSION\BUILD\CMAKEFILES\384A265A6041B6B01E53E1262348B074\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Documents/GitHub/libzedmd-python-pybind11-extension -BD:/Documents/GitHub/libzedmd-python-pybind11-extension/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Documents/GitHub/libzedmd-python-pybind11-extension/build/ZeDMD_ext.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

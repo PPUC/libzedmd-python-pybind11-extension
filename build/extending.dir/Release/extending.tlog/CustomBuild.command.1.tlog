@@ -1,0 +1,10 @@
+^D:\DOCUMENTS\GITHUB\LIBZEDMD-PYTHON-PYBIND11-EXTENSION\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Documents/GitHub/libzedmd-python-pybind11-extension -BD:/Documents/GitHub/libzedmd-python-pybind11-extension/build --check-stamp-file D:/Documents/GitHub/libzedmd-python-pybind11-extension/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

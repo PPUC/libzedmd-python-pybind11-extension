@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Documents\GitHub\libzedmd-python-pybind11-extension\build\CMakeFiles\384a265a6041b6b01e53e1262348b074\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{1538395F-11AA-3E55-BE72-A2A28D9F3839}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
