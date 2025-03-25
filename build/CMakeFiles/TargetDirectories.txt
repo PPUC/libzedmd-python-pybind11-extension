@@ -1,3 +1,0 @@
-D:/Documents/GitHub/libzedmd-python-pybind11-extension/build/CMakeFiles/extending.dir
-D:/Documents/GitHub/libzedmd-python-pybind11-extension/build/CMakeFiles/ALL_BUILD.dir
-D:/Documents/GitHub/libzedmd-python-pybind11-extension/build/CMakeFiles/ZERO_CHECK.dir
