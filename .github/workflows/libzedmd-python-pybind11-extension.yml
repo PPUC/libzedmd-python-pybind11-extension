@@ -111,8 +111,9 @@ jobs:
           cmake --version
 
       - name: Build libzedmd-python-python-extension
-        working-directory: build/
         run: |
+          mkdir build
+          cd build
           ls ../extern/libzedmd/build
           echo '--------------------------------------'
           rm -Rf ./*
