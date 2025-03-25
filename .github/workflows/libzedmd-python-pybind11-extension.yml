@@ -159,7 +159,7 @@ jobs:
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport.dll tmp
             fi
             cp build/${{ matrix.type }}/extending.lib tmp
-            cp build/${{ matrix.type }}/extending.dll tmp
+            cp build/${{ matrix.type }}/extending.pyd tmp
           else
             ARTIFACT_PATH="libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
             cp extern/libzedmd/build/libzedmd.* tmp
