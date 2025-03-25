@@ -101,6 +101,16 @@ jobs:
       - name: Testing PYBIND11_DIR
         run: echo "PYBIND11_DIR=${{ env.PYBIND11_DIR }}"
 
+      - name: Install prerequisites
+        run: |
+          python -m ensurepip --upgrade
+          pip install pybind11
+          python --version
+          pip --version
+          python -c "import pybind11; print(pybind11.__version__)"
+          cl
+          cmake --version
+
       - name: Build libzedmd-python-python-extension
         working-directory: build/
         run: |
@@ -130,6 +140,7 @@ jobs:
           ls -R
           echo '-----------------------------------'
           ls -R ../extern/libzedmd/build
+
 
       - name: Prepare artifacts
         id: artifacts
