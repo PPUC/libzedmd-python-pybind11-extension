@@ -152,11 +152,15 @@ jobs:
               cp extern/libzedmd/build/${{ matrix.type }}/zedmd64.dll tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport64.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport64.dll tmp
+              cp extern/libzedmd/build/${{ matrix.type }}/sockpp64.lib tmp
+              cp extern/libzedmd/build/${{ matrix.type }}/sockpp64.dll tmp
             elif [[ "${{ matrix.arch }}" == "x86" ]]; then
               cp extern/libzedmd/build/${{ matrix.type }}/zedmd.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/zedmd.dll tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport.dll tmp
+              cp extern/libzedmd/build/${{ matrix.type }}/sockpp.lib tmp
+              cp extern/libzedmd/build/${{ matrix.type }}/sockpp.dll tmp
             fi
             cp build/${{ matrix.type }}/extending.lib tmp
             cp build/${{ matrix.type }}/extending.pyd tmp
