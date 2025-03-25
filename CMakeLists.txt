@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(pybind11_DIR "C:/Users/Jerome/AppData/Local/Programs/Python/Python312/Lib/site-packages/pybind11/share/cmake/pybind11")
+set(PLATFORM "win")
+set(ARCH "x64")
 
 # Projet name
 project(ZeDMD_ext DESCRIPTION "Python cross-platform library for communicating with ZeDMD.")

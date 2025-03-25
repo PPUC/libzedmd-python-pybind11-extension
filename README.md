@@ -45,8 +45,8 @@ cmake -G "Visual Studio 17 2022" -DPLATFORM=win -DARCH=x64 -B build
 cmake --build build --config Release
 
 cd ../../build
-cmake ..
-cmake --build . --config Release
+cmake -Dpybind11_DIR=`python -c "import pybind11; print(pybind11.get_cmake_dir())"` ..
+cmake --build . --config Release 
 ```
 
 ### Running
