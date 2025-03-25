@@ -108,7 +108,6 @@ jobs:
           python --version
           pip --version
           python -c "import pybind11; print(pybind11.__version__)"
-          cl
           cmake --version
 
       - name: Build libzedmd-python-python-extension
