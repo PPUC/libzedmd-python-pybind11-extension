@@ -50,13 +50,10 @@ cmake --build . --config Release
 ```
 
 ### Running
-If needed :
-
-  pip install pillow
-  
-  pip install numpy
-
 ```shell
+pip install pillow
+pip install numpy
+
 python extending.py 
 ```
 
@@ -70,7 +67,7 @@ cmake --build build
 
 cd ../..
 pip install pillow
-./extending_build
+g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
 ```
 
 ### Running
