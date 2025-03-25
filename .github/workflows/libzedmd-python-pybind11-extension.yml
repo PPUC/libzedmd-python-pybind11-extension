@@ -95,20 +95,19 @@ jobs:
              cmake --build build -- -j${NUM_PROCS}
           fi
 
+      - name: Install prerequisites
+        run: |
+            pip install pybind11
+            python --version
+            pip --version
+            python -c "import pybind11; print(pybind11.__version__)"
+            cmake --version
+
       - name: Setting var PYBIND11_DIR
         run: echo "PYBIND11_DIR=$(python -c 'import pybind11; print(pybind11.get_cmake_dir())')" >> $GITHUB_ENV
 
       - name: Testing PYBIND11_DIR
         run: echo "PYBIND11_DIR=${{ env.PYBIND11_DIR }}"
-
-      - name: Install prerequisites
-        run: |
-          python -m ensurepip --upgrade
-          pip install pybind11
-          python --version
-          pip --version
-          python -c "import pybind11; print(pybind11.__version__)"
-          cmake --version
 
       - name: Build libzedmd-python-python-extension
         run: |
