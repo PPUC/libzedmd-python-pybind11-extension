@@ -148,6 +148,10 @@ jobs:
           echo '-----------------------------------'
           ls -R ../extern/libzedmd/build
 
+      - name: Test extending
+        run: |
+          pip install numpy
+          python extending.py   
 
       - name: Prepare artifacts
         id: artifacts
