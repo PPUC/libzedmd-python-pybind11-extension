@@ -219,7 +219,6 @@ jobs:
 #        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           zip -r libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64.zip libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64-Release
-          zip -r libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86.zip libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86-Release
 
       - name: Release
         uses: softprops/action-gh-release@v2
