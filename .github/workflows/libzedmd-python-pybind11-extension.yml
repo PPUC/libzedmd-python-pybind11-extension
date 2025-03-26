@@ -81,6 +81,7 @@ jobs:
         name:  patch external.sh       
         run: |
             patch extern/libzedmd/platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh < patch.txt
+            cat extern/libzedmd/platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh
 
       - name: Which python
         run: which -a python
