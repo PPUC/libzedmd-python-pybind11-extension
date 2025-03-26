@@ -37,7 +37,6 @@ jobs:
       matrix:
         include:
           - { os: windows-latest, platform: win, arch: x64, type: Release }
-          - { os: windows-latest, platform: win, arch: x86, type: Release }
           - { os: macos-latest, platform: macos, arch: arm64, type: Release }
           - { os: macos-latest, platform: macos, arch: x64, type: Release }
           - { os: ubuntu-latest, platform: linux, arch: x64, type: Release }
