@@ -47,8 +47,14 @@ target_link_libraries(extending PRIVATE
     ${LIBWIN}serialport${WIN64}
 )
 
-set_target_properties(extending PROPERTIES
-    PREFIX ""
-    SUFFIX ".pyd"
-)
 
+if(PLATFORM STREQUAL "win")
+    set_target_properties(extending PROPERTIES
+       PREFIX ""
+       SUFFIX ".pyd"
+    )
+else()
+    set_target_properties(extending PROPERTIES
+       PREFIX ""
+    )
+endif()
