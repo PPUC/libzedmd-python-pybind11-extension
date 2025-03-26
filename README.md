@@ -45,7 +45,7 @@ cmake -G "Visual Studio 17 2022" -DPLATFORM=win -DARCH=x64 -B build
 cmake --build build --config Release
 
 cd ../../build
-cmake -Dpybind11_DIR=C:\USERS\PATH\TO\PYBIND11 ..
+cmake -Dpybind11_DIR=C:\PATH\TO\PYBIND11\CMAKE\PYBIND11\DIR ..
 cmake --build . --config Release 
 ```
 In order to find pybind11_DIR you can use this command : 
