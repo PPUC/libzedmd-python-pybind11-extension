@@ -11,10 +11,10 @@ from PIL import Image, ImageSequence
 # Load ZeDMD library using ctypes
 if platform in ("win32", "cygwin"):
   libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/Release/zedmd64.dll')
+  from build.Release.extending import ZeDMD_ext
 else:
   libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libzedmd.so')
-
-from build.extending import ZeDMD_ext
+  from build.extending import ZeDMD_ext
 
 ZeDMD = ZeDMD_ext()
 # ZeDMD.SetBrightness(7)
