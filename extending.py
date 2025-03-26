@@ -8,7 +8,7 @@ from PIL import Image, ImageSequence
 
 
 # Load ZeDMD library using ctypes
-libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libzedmd.so')
+libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/Release/zedmd64.dll')
 
 
 from build.extending import ZeDMD_ext
