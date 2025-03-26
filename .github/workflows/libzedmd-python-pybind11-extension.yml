@@ -73,9 +73,14 @@ jobs:
           python-version: 3.12.4
 
       - if: (matrix.platform == 'macos')
-        name: Add autoconf and automake (mac runner)
+        name: Add autoconf and automake (mac runner)        
         run: |
             brew install autoconf automake libtool
+
+      - if: (matrix.platform == 'macos') && (matrix.arch == 'x64')
+        name:  patch external.sh       
+        run: |
+            patch extern/libzedmd/platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh < patch.txt
 
       - name: Which python
         run: which -a python
