@@ -68,14 +68,16 @@ cd extern/libzedmd/
 platforms/linux/x64/external.sh
 cmake -DPLATFORM=linux -DARCH=x64 -DCMAKE_BUILD_TYPE=Release -B build
 cmake --build build
-
+```
+Building :
+```shell
 cd ../..
-pip install pillow
 g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
 ```
 Notice : You can use cmake too (cf Windows section to see cmake command)
 
 ### Running
 ```shell
+pip install pillow
 python extending.py 
 ```
