@@ -3,15 +3,16 @@
 import ctypes
 import pathlib
 import time
+from sys import platform
 
 from PIL import Image, ImageSequence
 
 
 # Load ZeDMD library using ctypes
-# Comment the first line for Linux and the second one for Win
-libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/Release/zedmd64.dll')
-libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libzedmd.so')
-
+if platform in ("win32", "cygwin"):
+  libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/Release/zedmd64.dll')
+else:
+  libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libzedmd.so')
 
 from build.extending import ZeDMD_ext
 
