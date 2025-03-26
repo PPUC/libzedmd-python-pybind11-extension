@@ -228,7 +228,6 @@ jobs:
           draft: true
           files: |
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x64.zip
-            libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-win-x86.zip
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64-Release/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-arm64.tar.gz
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64-Release/libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos-x64.tar.gz
             libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-macos.tar.gz
