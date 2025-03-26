@@ -156,31 +156,20 @@ jobs:
           if [[ "${{ matrix.platform }}" == "win" ]]; then
             ARTIFACT_PATH="tmp"
             if [[ "${{ matrix.arch }}" == "x64" ]]; then
-              cp extern/libzedmd/build/${{ matrix.type }}/zedmd64.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/zedmd64.dll tmp
-              cp extern/libzedmd/build/${{ matrix.type }}/libserialport64.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport64.dll tmp
-              cp extern/libzedmd/build/${{ matrix.type }}/sockpp64.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/sockpp64.dll tmp
             elif [[ "${{ matrix.arch }}" == "x86" ]]; then
-              cp extern/libzedmd/build/${{ matrix.type }}/zedmd.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/zedmd.dll tmp
-              cp extern/libzedmd/build/${{ matrix.type }}/libserialport.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/libserialport.dll tmp
-              cp extern/libzedmd/build/${{ matrix.type }}/sockpp.lib tmp
               cp extern/libzedmd/build/${{ matrix.type }}/sockpp.dll tmp
             fi
-            cp build/${{ matrix.type }}/extending.lib tmp
             cp build/${{ matrix.type }}/extending.pyd tmp
           else
             ARTIFACT_PATH="libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
             cp extern/libzedmd/build/libzedmd.* tmp
             cp extern/libzedmd/build/libserialport.* tmp
-            if [[ "${{ matrix.platform }}" == "macos" ]]; then
-              cp build/extending.dylib tmp
-            elif [[ "${{ matrix.platform }}" == "linux" ]]; then
-              cp build/extending.so tmp
-            fi
+            cp build/extending.pyd tmp
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
           fi
