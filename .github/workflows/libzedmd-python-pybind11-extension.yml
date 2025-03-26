@@ -169,6 +169,7 @@ jobs:
             ARTIFACT_PATH="libzedmd-python-pybind11-extension-${{ needs.version.outputs.tag }}-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
             cp extern/libzedmd/build/libzedmd.* tmp
             cp extern/libzedmd/build/libserialport.* tmp
+            cp extern/libzedmd/build/libsockpp.* tmp
             cp build/extending.pyd tmp
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
