@@ -173,7 +173,7 @@ jobs:
             if [[ "${{ matrix.platform }}" == "linux" ]]; then
               cp build/extending.so* tmp
             else
-              cp build/extending.dylib* tmp
+              cp build/extending*.dylib tmp
             fi
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
