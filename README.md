@@ -48,7 +48,7 @@ cd ../../build
 cmake -Dpybind11_DIR=C:\PATH\TO\PYBIND11\CMAKE\PYBIND11\DIR ..
 cmake --build . --config Release 
 ```
-In order to find pybind11_DIR you can use this command : 
+Notice : In order to find pybind11_DIR you can use this command : 
 ```shell
 python -c "import pybind11; print(pybind11.get_cmake_dir())"
 ```
