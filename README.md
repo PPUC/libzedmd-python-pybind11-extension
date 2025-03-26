@@ -72,7 +72,7 @@ cmake --build build
 Building :
 ```shell
 cd ../..
-g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/extending$(python3-config --extension-suffix)  -ldl -lpthread -lutil -lzedmd -lserialport
+g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pybind11/include -Iextern/libzedmd/src -Lextern/libzedmd/build extending.cpp  -o build/extending$(python3-config --extension-suffix)  -ldl -lutil -lzedmd -lserialport
 ```
 Notice : You can use cmake too (cf Windows section to see cmake command)
 
