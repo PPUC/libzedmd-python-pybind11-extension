@@ -170,7 +170,11 @@ jobs:
             cp extern/libzedmd/build/libzedmd.* tmp
             cp extern/libzedmd/build/libserialport.* tmp
             cp extern/libzedmd/build/libsockpp.* tmp
-            cp build/extending.pyd tmp
+            if [[ "${{ matrix.platform }}" == "linux" ]]; then
+              cp build/extending.so* tmp
+            else
+              cp build/extending.dylib* tmp
+            fi
             cd tmp
             tar -czvf ../${ARTIFACT_PATH} *
           fi
