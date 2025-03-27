@@ -13,6 +13,8 @@ if platform in ("win32", "cygwin"):
   libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/Release/zedmd64.dll')
   from build.Release.extending import ZeDMD_ext
 elif platform == "darwin":
+  libsockpp = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libsockpp.dylib')
+  libserialport = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libserialport.dylib')
   libzedmd = ctypes.CDLL(str(pathlib.Path(__file__).parent.resolve()) + '/extern/libzedmd/build/libzedmd.dylib')
   from build.extending import ZeDMD_ext
 else:
