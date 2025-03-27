@@ -83,6 +83,15 @@ jobs:
             patch extern/libzedmd/platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh < patch.txt
             cat extern/libzedmd/platforms/${{ matrix.platform }}/${{ matrix.arch }}/external.sh
 
+      - if: (matrix.platform == 'macos') && (matrix.arch == 'x64')
+        name:  test architecture
+        run: |
+          machine
+          arch
+          uname -m
+          uname -a
+          uname -p
+
       - name: Which python
         run: which -a python
 
