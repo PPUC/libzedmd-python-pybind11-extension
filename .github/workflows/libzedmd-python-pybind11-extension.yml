@@ -110,6 +110,7 @@ jobs:
             pip --version
             python -c "import pybind11; print(pybind11.__version__)"
             cmake --version
+            python -c "import platform; print(platform.uname())"
 
       - name: Setting var PYBIND11_DIR
         run: echo "PYBIND11_DIR=$(python -c 'import pybind11; print(pybind11.get_cmake_dir())')" >> $GITHUB_ENV
