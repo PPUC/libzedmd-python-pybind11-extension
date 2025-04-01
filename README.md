@@ -37,7 +37,10 @@ cd extern/libzedmd/
 platforms/win/x64/external.sh
 cmake -G "Visual Studio 17 2022" -DPLATFORM=win -DARCH=x64 -B build
 cmake --build build --config Release
+```
+Alternative : go to (https://github.com/PPUC/libzedmd/releases) and unzip files into extern/libzedmd/build
 
+```shell
 cd ../../build
 cmake -DPLATFORM=win -DARCH=x64 -Dpybind11_DIR=C:\PATH\TO\PYBIND11\CMAKE\PYBIND11\DIR ..
 cmake --build . --config Release
