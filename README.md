@@ -73,7 +73,7 @@ g++ -O3 -Wall -shared -std=c++11 -fPIC $(python3-config --includes) -Iextern/pyb
 ```
 Notice : You can use cmake too :
 ```shell
-cmake -DPLATFORM=Linux -DARCH=x64 -DCMAKE_BUILD_TYPE=Release -Dpybind11_DIR=/PATH/TO/PYBIND11/CMAKE/PYBIND11/DIR build
+cmake -DPLATFORM=Linux -DARCH=x64 -DCMAKE_BUILD_TYPE=Release -Dpybind11_DIR=/PATH/TO/PYBIND11/CMAKE/PYBIND11/DIR -B build
 cmake --build build
 ```
 
